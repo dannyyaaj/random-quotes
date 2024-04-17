@@ -1,0 +1,16 @@
+<div class="container">
+  @if (currentQuote) {
+  <div class="quote-container">
+    <div class="quote">
+      <div class="quote__text">
+        <p class="text">"{{currentQuote.quote}}"</p>
+      </div>
+      <div class="quote__author">- <span class="author">{{currentQuote.author}}</span></div>
+    </div>
+    <button class="button" (click)="onClick()">New quote</button>
+  </div>
+  }
+  @else {
+  <p>No Quotes Available</p>
+  }
+</div>

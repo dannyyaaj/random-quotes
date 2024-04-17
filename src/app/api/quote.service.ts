@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { Quote } from './quote';
 
 @Injectable({
@@ -12,9 +12,9 @@ export class QuoteService {
   constructor(private http: HttpClient) { }
 
   getQuotes(): Observable<Quote[]> {
-    return this.http.get<Quote[]>(this.apiPath)
+    return this.http.get<any>(this.apiPath)
       .pipe(
-        tap((quotes) => console.log('get quotes: ', quotes))
+        map((quoteData) => quoteData.quotes)
       )
   }
 }

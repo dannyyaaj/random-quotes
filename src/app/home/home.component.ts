@@ -1,38 +1,47 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { QuoteService } from '../api/quote.service';
 import { Quote } from '../api/quote';
 import { Subscription } from 'rxjs';
+import { QuoteContainerComponent } from '../quote-container/quote-container.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [QuoteContainerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnDestroy, OnInit {
   quotes: Quote[] = []
+  currentQuote: Quote
   subscription: Subscription = new Subscription()
-
-  constructor(private readonly quoteService: QuoteService) { }
+  quoteService = inject(QuoteService);
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.getQuotes()
-    )
+    this.getQuotes()
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
   }
 
   getQuotes(): void {
     this.quoteService.getQuotes()
-      .subscribe(quotes => this.quotes = quotes)
+      .subscribe(quotes => {
+        this.quotes = quotes
+        this.currentQuote = this.getRandomQuote(quotes)
+      })
   }
 
   getRandomQuote(quotesData: Quote[]): Quote {
     const randomIndex = Math.floor(Math.random() * quotesData.length)
     return quotesData[randomIndex];
+  }
+
+  getNewQuote(): void {
+    if (this.quotes.length && this.currentQuote) {
+      if (this.getRandomQuote(this.quotes) !== this.currentQuote) {
+        this.currentQuote = this.getRandomQuote(this.quotes)
+      }
+    }
   }
 }
