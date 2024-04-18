@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { QuoteService } from '../api/quote.service';
 import { Quote } from '../api/quote';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { QuoteContainerComponent } from '../quote-container/quote-container.comp
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnDestroy, OnInit {
+export class HomeComponent implements OnInit {
   quotes: Quote[] = []
   currentQuote: Quote
   subscription: Subscription = new Subscription()
@@ -19,9 +19,6 @@ export class HomeComponent implements OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.getQuotes()
-  }
-
-  ngOnDestroy(): void {
   }
 
   getQuotes(): void {
