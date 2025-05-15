@@ -1,4 +1,4 @@
-export interface Quote {
+export class Quote {
   quote: string
   author: string
 }
