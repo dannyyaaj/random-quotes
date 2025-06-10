@@ -17,9 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/",
+            "outputPath": "dist/random-quotes",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "baseHref": "/random-quotes/",
             "polyfills": [
               "zone.js"
             ],
